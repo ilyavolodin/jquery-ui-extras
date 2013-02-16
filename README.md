@@ -8,6 +8,7 @@ Plugins for jQuery UI
 Mostly works. Supports IE6+, FF, Chrome and Safari. Supports handles, helper (partially). Three events: start, rotate, stop.
 
 Known issues: In IE6-8 when you display handles with negative margins, when the element is rotated, any part of the handle that's outside of the element will be cut off. Sometimes starting rotation on already rotated element might be a bit jumpy.
+Destroy command, will destroy rotatable but will not remote rotatable class from the element.
 
 ## Draggable overlap
 
