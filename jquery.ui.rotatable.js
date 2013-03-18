@@ -1,4 +1,4 @@
-﻿(function($)
+(function($)
 {
     $.widget("ui.rotatable", $.ui.mouse, {
         version: "1.10.0",
@@ -31,7 +31,10 @@
             if (this.handles.constructor == String)
             {
 
-                if (this.handles == 'all') this.handles = 'n,e,s,w,se,sw,ne,nw';
+                if (this.handles == 'all')
+                {
+                    this.handles = 'n,e,s,w,se,sw,ne,nw';
+                }
                 var n = this.handles.split(","); this.handles = {};
 
                 for (var i = 0; i < n.length; i++)
@@ -79,8 +82,6 @@
             }
 
             return !this.options.disabled && handle;
-
-            return true;
         },
        
         _mouseStart: function(event)
@@ -116,6 +117,8 @@
         {
             this.angle = parseInt(this._generateAngle(event) * (180 / Math.PI) - 90);
 
+            this.angle = this.angle < 0 ? 360 + this.angle : this.angle;
+
             if (!noPropagation)
             {
                 var ui = this._uiHash();
@@ -124,6 +127,8 @@
                     this._mouseUp({});
                     return false;
                 }
+
+                this.angle = ui.angle;
             }
 
             var me = this;
@@ -138,7 +143,7 @@
                     me.helper.css("z-index", 1);
                 }
                 this.helper = me.helper[0];
-                var rad = Math.PI / 180
+                var rad = Math.PI / 180;
                 this._angle = angle;
                     
                 var _rad = angle * rad;
@@ -315,6 +320,25 @@
                 angle = 0;
             }
             return angle;
+        }
+    });
+
+    $.ui.plugin.add("rotatable", "snap", {
+        rotate: function(event, ui)
+        {
+            var i = $(this).data("rotatable"), o = i.options;
+            var angle = o.snap.angle ? o.snap.angle : 15;
+            if (!o.snap.angle)
+            {
+                return;
+            }
+            var snapTolerance = o.snap.tolerance ? o.snap.tolerance : 2;
+            var diff = Math.abs(ui.angle % angle);
+            if (diff === 0 || diff < snapTolerance || angle - diff < snapTolerance)
+            {
+                var newAngle = diff === 0 ? ui.angle : diff < snapTolerance ? ui.angle - diff : ui.angle + angle - diff;
+                ui.angle = newAngle;
+            }
         }
     });
 })(jQuery);
