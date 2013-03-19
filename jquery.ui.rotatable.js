@@ -47,7 +47,7 @@
                     axis.css({ zIndex: this.options.zIndex });
 
                     //Insert into internal handles object and append to element
-                    this.handles[handle] = '.ui-rotatable-' + handle;
+                    this.handles[handle] = axis;
                     this.element.append(axis);
                 }
             }
