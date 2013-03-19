@@ -31,3 +31,5 @@ guidelines: {
     snap: this.showSnaps
 }
 ````
+
+[Example] (http://ilyavolodin.github.com/jquery-ui-extras/) - please use Chrome/Firefox/Safari. IE doesn't allow execution of JavaScript files downloaded from https, from the page with http.
